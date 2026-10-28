@@ -1,8 +1,8 @@
-# Discord Server AutoTranslate EN
+# Discord Server AutoTranslate
 
-Experimental BetterDiscord plugin for **Discord Canary** (macOS and other desktop platforms).
+An experimental, source-language-agnostic translator for **Discord Canary** with BetterDiscord (macOS and other desktop platforms).
 
-**Original first, English translation underneath.** Every visible eligible server message detected as non-English (including Russian) may show a muted-gray translation with an English source-language label. English messages are left as-is.
+**Original messages stay visible; English translations appear underneath.** The plugin detects the source language of eligible, visible server messages and adds a subtle, muted translation line when the detected language is not English. Messages already in English are left unchanged.
 
 > Based on [AutoTranslate v0.3.2 by Snues](https://github.com/Snusene/BetterDiscordPlugins/tree/main/AutoTranslate), used and modified under the MIT license. This is an independent, unofficial adaptation; it is **not** an official Snues release.
 
@@ -14,8 +14,8 @@ Gdzie
 Where (Translated from Polish)
 
 7:51  User
-Привет, как дела?
-Hello, how are you? (Translated from Russian)
+Hola, ¿cómo estás?
+Hello, how are you? (Translated from Spanish)
 
 7:52  User
 See you later!
@@ -25,7 +25,7 @@ The original Discord-rendered content is retained; the translation appears in a 
 
 ## Behavior
 
-- **Translate to English** from Russian, Polish, German, Chinese and other Google-supported languages.
+- **Automatic source-language detection.** Translates recognized non-English messages into English, subject to provider support.
 - **Do not translate English.** Unknown/undetected languages also leave no translation line.
 - **Server channels only**; neither DMs nor group DMs are processed.
 - Only **visible messages** are translated; this does not crawl all server history.
@@ -40,7 +40,7 @@ The original Discord-rendered content is retained; the translation appears in a 
 2. Disable Snues' **AutoTranslate** or any earlier **ServerAutoTranslateEN** variant to avoid conflicting render patches.
 3. Open **User Settings → BetterDiscord → Plugins → Open Plugins Folder**.
 4. Save [`ServerAutoTranslateEN.plugin.js`](./ServerAutoTranslateEN.plugin.js) into this directory. Keep the exact `.plugin.js` extension.
-5. Enable **ServerAutoTranslateEN** in the plugin list. Test in a server channel with known Russian and English messages.
+5. Enable **ServerAutoTranslateEN** in the plugin list. Test in a server channel with a few messages in English and another supported language.
 
 ### Temporary console test
 

@@ -40,19 +40,21 @@ for (const language of ["en", "en-US", "EN-gb", "", "auto", "und"]) {
   assert.equal(plugin.blocked(language), true, language + " should skip");
 }
 
-const raw = {type: "span", props: {id: "raw"}, children: ["Привет"]};
+const raw = {type: "span", props: {id: "raw"}, children: ["Cześć"]};
 const extra = {type: "span", props: {id: "extra"}, children: ["edited"]};
 plugin.parser = {parse: value => value};
 plugin.langNames = {};
-const ui = plugin.render({src:"ru", raw:"Привет", text:"Hello", parsed:null}, raw, [extra]);
+const ui = plugin.render({src:"pl", raw:"Cześć", text:"Hello", parsed:null}, raw, [extra]);
 assert.strictEqual(ui[0], raw, "Must retain original Discord render without alteration");
 assert.strictEqual(ui[1], extra, "Must retain existing extra elements");
 assert.equal(ui[2].props.className, "at-translation-line");
-assert.equal(ui[2].children[1].children.join(""), " (Translated from Russian)");
-assert.match(source, /color:\\s*var\\(--text-muted/);
+assert.equal(ui[2].children[1].children.join(""), " (Translated from Polish)");
+assert.ok(source.includes("color: var(--text-muted"), "Translations use muted Discord text styling");
 
-assert.ok(consoleSource.includes(source), "Console bundle should match BetterDiscord build exactly");
-assert.match(source, /translate-pa\\.googleapis\\.com/);
-assert.match(source, /translate\\.googleapis\\.com/);
+assert.ok(consoleSource.includes(source), "Console must embed exactly the plugin source");
+assert.ok(source.includes("@version 0.3.2-server.4"), "Updated plugin version");
+assert.ok(consoleSource.includes("@version 0.3.2-server.4"), "Updated console version");
+assert.ok(source.includes("translate-pa.googleapis.com"), "Primary provider is present");
+assert.ok(source.includes("translate.googleapis.com"), "Fallback provider is present");
 
-console.log("PASS: syntax, server-only, English skip, Russian translation, source label, unchanged original, console bundle");
+console.log("PASS: syntax, server-only, multilingual source handling, English skip, source label, unchanged original, console parity");

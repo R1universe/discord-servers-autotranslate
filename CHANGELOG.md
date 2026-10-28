@@ -1,8 +1,14 @@
 # Changelog
 
+## 0.3.2-server.4 — 2026-10-28
+
+- Use language-neutral descriptions in documentation, source comments, settings and console output.
+- Keep automatic detection and translation of supported non-English messages into English unchanged.
+- Correct the GitHub source URL, synchronize console/plugin metadata and repair the smoke tests.
+
 ## 0.3.2-server.3 — 2026-10-28
 
-- Translate **Russian and all other detected non-English languages** into English.
+- Translate **recognized non-English source languages** into English.
 - Skip English and unknown/undetected source languages.
 - Keep server-only behavior: never process DMs or group DMs.
 - Preserve original Discord messages, showing a separate muted-gray English translation line with a source-language label.
@@ -13,7 +19,7 @@
 
 - Preserved raw Discord message rendering.
 - Added gray translation line below original instead of replacing it.
-- Excluded Russian and English; **superseded by 0.3.2-server.3**.
+- Had narrower source-language exclusions; **superseded by 0.3.2-server.3**.
 
 ## Attribution
 

@@ -1,9 +1,9 @@
 /**
  * @name ServerAutoTranslateEN
  * @author R1universe
- * @description Original server messages with a muted English translation underneath; skips English, excludes DMs.
- * @version 0.3.2-server.3
- * @source https://github.com/R1universe/discrord-servers-autotranslate
+ * @description Automatically detects source languages in server messages and adds subtle English translations below the originals; excludes DMs.
+ * @version 0.3.2-server.4
+ * @source https://github.com/R1universe/discord-servers-autotranslate
  */
 
 // Based on Snues' AutoTranslate v0.3.2, MIT licensed.
@@ -303,8 +303,8 @@ module.exports = class ServerAutoTranslateEN {
     this.backoff = 0;
     this.label = null;
     this.langNames = {};
-    // Fixed configuration: server channels only, English target.
-    // Russian is translated; English is skipped. No original plugin settings are read.
+    // Fixed rules: translate detected non-English server messages to English.
+    // Skip English and unknown source languages; no user-selected language pairs.
     // User has acknowledged the external translation privacy tradeoff.
     this.settings = {
       skipLangs: ["en"],
@@ -871,8 +871,8 @@ module.exports = class ServerAutoTranslateEN {
   }
 
   blocked(src) {
-    // Google's detected source language. Translate Russian and all other
-    // recognized non-English languages; English already matches our target.
+    // Accept any recognized source language except our English target.
+    // Source detection is independent of the user's Discord/OS locale.
     // Detection happens at Google's endpoint, AFTER the text is sent there.
     const language = String(src || "").trim().toLowerCase().replace(/_/g, "-");
     // Unknown source language: don't display unlabelled or possibly redundant translations.
@@ -978,8 +978,8 @@ module.exports = class ServerAutoTranslateEN {
       style: {lineHeight: "1.7", padding: "12px"}
     },
       h("strong", null, "Server AutoTranslate EN — fixed rules"),
-      h("p", null, "Original messages are always shown as-is. A muted English translation appears below, labelled with the detected source language. Russian and other recognized non-English messages are translated; English and unknown-source messages show no translation. DMs and group DMs are never processed."),
-      h("p", null, "Privacy: language detection takes place on Google's servers. All eligible server messages, including Russian and English, may be sent to Google for language detection before a translation is displayed. This version uses the original AutoTranslate Google endpoints (translate-pa.googleapis.com; fallback translate.googleapis.com)."),
+      h("p", null, "Original server messages remain unchanged. For recognized non-English source languages, a muted English translation appears beneath the original with a source-language label. Messages in English or with an unknown source language are left as-is. DMs and group DMs are not processed."),
+      h("p", null, "Privacy: source-language detection runs on Google's servers. Eligible visible server messages may be sent to Google even when no translation is ultimately shown. This build uses unofficial Google Translate endpoints (translate-pa.googleapis.com; fallback translate.googleapis.com)."),
       h("p", null, "This is an unofficial adaptation of Snues' AutoTranslate v0.3.2, not an official update. To change these fixed rules, edit the JavaScript file.")
     );
   }
