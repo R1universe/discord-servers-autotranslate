@@ -1,7 +1,7 @@
 /**
  * @name ServerAutoTranslateEN
- * @author R1universe (based on Snues' AutoTranslate)
- * @description Original server messages with a muted English translation underneath; includes Russian, skips English, excludes DMs.
+ * @author R1universe
+ * @description Original server messages with a muted English translation underneath; skips English, excludes DMs.
  * @version 0.3.2-server.3
  * @source https://github.com/R1universe/discrord-servers-autotranslate
  */
