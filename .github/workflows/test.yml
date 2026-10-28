@@ -1,0 +1,21 @@
+name: Verify JavaScript
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse plugin
+        run: node --check ServerAutoTranslateEN.plugin.js
+      - name: Parse console build
+        run: node --check ServerAutoTranslateEN.console.js
+      - name: Run smoke tests
+        run: node tests/smoke.cjs
